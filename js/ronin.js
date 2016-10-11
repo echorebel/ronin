@@ -21,12 +21,12 @@ window.onload = function() {
       false // antialias off
     );
 
-    game.state.add("Boot", boot);
-    game.state.add("Preload", preload);
-    game.state.add("Title", title);
-    game.state.add("Game", gameState);
-    //game.state.add("GameOver", gameOverState);
-    game.state.start("Boot");
+  game.state.add("Boot", boot);
+  game.state.add("Preload", preload);
+  game.state.add("Title", title);
+  game.state.add("ArcadeMode", arcadeMode);
+  //game.state.add("GameOver", gameOverState);
+  game.state.start("Boot");
 
   function createText() {
 

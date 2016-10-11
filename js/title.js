@@ -39,7 +39,6 @@ title.prototype = {
     startText.font = 'Press Start 2P';
     startText.fill = grd;
 
-
     var startKey = this.game.input.keyboard.addKey(Phaser.Keyboard.F);
     startKey.onDown.add(this.playTheGame, this);
 
@@ -50,6 +49,6 @@ title.prototype = {
 
 	},
 	playTheGame: function(){
-		this.game.state.start("Game");
+		this.game.state.start("ArcadeMode");
 	}
 }
