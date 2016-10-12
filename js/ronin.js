@@ -25,6 +25,7 @@ window.onload = function() {
   game.state.add("Preload", preload);
   game.state.add("Title", title);
   game.state.add("ArcadeMode", arcadeMode);
+  game.state.add("ExploreMode", exploreMode);
   //game.state.add("GameOver", gameOverState);
   game.state.start("Boot");
 
