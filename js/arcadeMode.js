@@ -1,6 +1,7 @@
 var arcadeMode = function(game)
 {
    this.speed = 20;
+   this.ship = null;
 }
 
 arcadeMode.prototype =
@@ -12,9 +13,9 @@ arcadeMode.prototype =
 
    create: function()
    {
-      this.physics.startSystem(Phaser.Physics.ARCADE);
 
       ship = this.game.add.sprite(winW*0.5, winH*0.5, 'ship');
+      ship.anchor.set(0.5);
       ship.scale.setTo(2, 2);
 
       ship.animations.add('leftTransition', [1,6,1,6,0], 12, false);

@@ -1,4 +1,7 @@
-var title = function(game){}
+var title = function(game)
+{
+   ship: null;
+}
 
 title.prototype =
 {
