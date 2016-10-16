@@ -47,6 +47,7 @@ exploreMode.prototype =
 
       if(down)
       {
+         // TODO how can i fix the sprite alignment/rotation?
          this.game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
       } else {
          ship.body.acceleration.set(0);
