@@ -1,19 +1,16 @@
-var exploreMode = function(game)
+export default
+class ExploreMode extends Phaser.State
 {
-   this.ship = null;
-}
-
-exploreMode.prototype =
-{
-   preload: function()
+   preload()
    {
       console.log("explore mode running");
-   },
+   }
 
-   create: function()
+   create()
    {
       // TODO move to ship class
-      ship = this.game.add.sprite(winW*0.5, winH*0.5, 'ship');
+      this.ship = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ship');
+      let ship = this.ship;
       ship.angle = -90;
       ship.anchor.set(0.5);
       ship.scale.setTo(2, 2);
@@ -28,38 +25,39 @@ exploreMode.prototype =
       this.game.physics.enable(ship, Phaser.Physics.ARCADE);
       ship.body.drag.set(100);
       ship.body.maxVelocity.set(200);
+      ship.body.collideWorldBounds = true;
 
-      cursors = this.game.input.keyboard.createCursorKeys();
-      wasd = {
+      this.cursors = this.game.input.keyboard.createCursorKeys();
+      this.wasd = {
          up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
          down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
          left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
          right: this.game.input.keyboard.addKey(Phaser.Keyboard.D)
       }
-   },
+   }
 
-   update: function()
+   update()
    {
-      left = wasd.left.isDown || cursors.left.isDown;
-      right = wasd.right.isDown || cursors.right.isDown;
-      up = wasd.up.isDown || cursors.up.isDown;
-      down = wasd.down.isDown || cursors.down.isDown;
+      let left = this.wasd.left.isDown || this.cursors.left.isDown;
+      let right = this.wasd.right.isDown || this.cursors.right.isDown;
+      let up = this.wasd.up.isDown || this.cursors.up.isDown;
+      let down = this.wasd.down.isDown || this.cursors.down.isDown;
 
       if(down)
       {
          // TODO how can i fix the sprite alignment/rotation?
-         this.game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
+         this.game.physics.arcade.accelerationFromRotation(this.ship.rotation, 200, this.ship.body.acceleration);
       } else {
-         ship.body.acceleration.set(0);
+         this.ship.body.acceleration.set(0);
       }
 
       if(left)
       {
-         ship.body.angularVelocity = -300;
+         this.ship.body.angularVelocity = -300;
       } else if(right) {
-         ship.body.angularVelocity = 300;
+         this.ship.body.angularVelocity = 300;
       } else {
-         ship.body.angularVelocity = 0;
+         this.ship.body.angularVelocity = 0;
       }
    }
 }

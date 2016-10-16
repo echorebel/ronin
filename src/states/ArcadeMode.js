@@ -1,20 +1,16 @@
-var arcadeMode = function(game)
+export default
+class ArcadeMode
 {
-   this.speed = 20;
-   this.ship = null;
-}
-
-arcadeMode.prototype =
-{
-   preload: function()
+   preload()
    {
       console.log("game running");
-   },
+      this.speed = 20;
+   }
 
-   create: function()
+   create()
    {
-
-      ship = this.game.add.sprite(winW*0.5, winH*0.5, 'ship');
+      this.ship = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ship');
+      let ship = this.ship;
       ship.anchor.set(0.5);
       ship.scale.setTo(2, 2);
 
@@ -27,32 +23,31 @@ arcadeMode.prototype =
 
       // enabling physics on the ship
       this.physics.enable(ship, Phaser.Physics.ARCADE);
-
       ship.body.drag.set(500);
       ship.body.maxVelocity.set(300);
-
       ship.body.collideWorldBounds = true;
 
       /******************** controls ************************/
-      cursors = this.game.input.keyboard.createCursorKeys();
+      this.cursors = this.game.input.keyboard.createCursorKeys();
       // TODO not for french guys - keep it configurable - ZQSD
-      wasd = {
+      this.wasd = {
          up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
          down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
          left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
          right: this.game.input.keyboard.addKey(Phaser.Keyboard.D)
       }
-   },
+   }
 
-   update: function()
+   update()
    {
+      let ship = this.ship;
       // Stop the ship
       //ship.body.velocity.set(0);
 
-      left = wasd.left.isDown || cursors.left.isDown;
-      right = wasd.right.isDown || cursors.right.isDown;
-      up = wasd.up.isDown || cursors.up.isDown;
-      down = wasd.down.isDown || cursors.down.isDown;
+      let left = this.wasd.left.isDown || this.cursors.left.isDown;
+      let right = this.wasd.right.isDown || this.cursors.right.isDown;
+      let up = this.wasd.up.isDown || this.cursors.up.isDown;
+      let down = this.wasd.down.isDown || this.cursors.down.isDown;
 
       if (left)
       {
@@ -60,7 +55,7 @@ arcadeMode.prototype =
 
          if (ship.animations.currentAnim.name == 'idle')
          {
-            ship.animations.play('leftTransition').onComplete.add(onLeftComplete, this);
+            ship.animations.play('leftTransition').onComplete.add(this.onLeftComplete, this);
          }
       }
       else if (right)
@@ -69,7 +64,7 @@ arcadeMode.prototype =
 
          if(ship.animations.currentAnim.name == 'idle')
          {
-            ship.animations.play('rightTransition').onComplete.add(onRightComplete, this);
+            ship.animations.play('rightTransition').onComplete.add(this.onRightComplete, this);
          }
       }
       else {
@@ -95,13 +90,15 @@ arcadeMode.prototype =
 
       }*/
    }
-}
 
-function onLeftComplete()
-{
-    ship.animations.play('left');
-}
-function onRightComplete()
-{
-    ship.animations.play('right');
+   onLeftComplete()
+   {
+      this.ship.animations.play('left');
+   }
+
+   onRightComplete()
+   {
+      this.ship.animations.play('right');
+   }
+
 }
